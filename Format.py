@@ -229,7 +229,7 @@ class VOC:
             printProgressBar(0, progress_length, prefix='\nVOC Parsing:'.ljust(15), suffix='Complete', length=40)
             for filename in filenames:
                 if filename[0] == ".":
-                    pass
+                    continue
                 xml = open(os.path.join(dir_path, filename), "r")
 
                 tree = Et.parse(xml)
