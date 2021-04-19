@@ -699,14 +699,18 @@ class YOLO:
                     ymin = data[key]["objects"][str(idx)]["bndbox"]["ymin"]
                     xmax = data[key]["objects"][str(idx)]["bndbox"]["xmax"]
                     ymax = data[key]["objects"][str(idx)]["bndbox"]["ymax"]
+                    
+                    try :
+                        b = (float(xmin), float(xmax), float(ymin), float(ymax))
+                        bb = self.coordinateCvt2YOLO((img_width, img_height), b)
 
-                    b = (float(xmin), float(xmax), float(ymin), float(ymax))
-                    bb = self.coordinateCvt2YOLO((img_width, img_height), b)
+                        cls_id = self.cls_list.index(data[key]["objects"][str(idx)]["name"])
 
-                    cls_id = self.cls_list.index(data[key]["objects"][str(idx)]["name"])
+                        bndbox = "".join(["".join([str(e), " "]) for e in bb])
+                        contents = "".join([contents, str(cls_id), " ", bndbox[:-1], "\n"])
 
-                    bndbox = "".join(["".join([str(e), " "]) for e in bb])
-                    contents = "".join([contents, str(cls_id), " ", bndbox[:-1], "\n"])
+                    except:
+                        print("file broken:", data[key])
 
                 result[key] = contents
 
