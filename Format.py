@@ -710,7 +710,7 @@ class YOLO:
                         contents = "".join([contents, str(cls_id), " ", bndbox[:-1], "\n"])
 
                     except:
-                        print("file broken:", data[key])
+                        print("file broken:", key)
 
                 result[key] = contents
 
